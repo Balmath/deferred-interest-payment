@@ -1,6 +1,16 @@
 export function Amount(value) {
-    var number = Number(value);
-    var amount = { number };
+    const number = Number(value);
+
+    var amount = {
+        valueOf: function valueOf() {
+            return number.valueOf();
+        },
+        toString: function toString() {
+            return number.toString();
+        }
+    };
+    
     Object.freeze(amount);
+
     return amount;
 }

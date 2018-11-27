@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ava"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,26 @@
   "bugs": {
     "url": "https://github.com/Balmath/deferred-interest-payment/issues"
   },
-  "homepage": "https://github.com/Balmath/deferred-interest-payment#readme"
+  "homepage": "https://github.com/Balmath/deferred-interest-payment#readme",
+  "devDependencies": {
+    "ava": "1.0.0-rc.2",
+    "esm": "^3.0.84"
+  },
+  "ava": {
+    "require": [
+      "esm"
+    ],
+    "babel": {
+      "testOptions": {
+        "presets": [
+          [
+            "module:ava/stage-4",
+            {
+              "modules": false
+            }
+          ]
+        ]
+      }
+    }
+  }
 }
