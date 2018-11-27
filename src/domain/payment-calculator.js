@@ -1,6 +1,4 @@
-"use strict";
-
-function PaymentCalculator() {
+export function PaymentCalculator() {
     var payment = 0.0;
 
     function doGetPayment() {

@@ -1,0 +1,22 @@
+{
+  "name": "deferred-interest-payment",
+  "version": "1.0.0",
+  "description": "A utility program to calculte how much I should pay for the month on my credit card with deferred interest payments",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Balmath/deferred-interest-payment.git"
+  },
+  "author": "Mathieu Balland",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Balmath/deferred-interest-payment/issues"
+  },
+  "homepage": "https://github.com/Balmath/deferred-interest-payment#readme"
+}
