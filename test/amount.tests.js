@@ -1,36 +1,68 @@
-import test from 'ava';
-import { Amount } from '../src/domain/amount';
+import {createAmount} from "../src/domain/amount";
+import test from "ava";
 
-test('AmountValueShouldBeTheExpected', t => {
-    const expected = 42;
-    const amount = Amount(expected);
-    t.is(amount.valueOf(), expected);
+test("AmountValueShouldBeTheExpected", (assert) => {
+    const amount = createAmount(42),
+        expected = 42;
+
+    assert.is(amount.valueOf(), expected);
 });
 
-test('AmountValueShouldBeNan', t => {
-    const amount = Amount("Wrong!");
-    t.true(Number.isNaN(amount.valueOf()));
+test("AmountValueShouldThrowIfInvalidNumber", (assert) => {
+    const error = assert.throws(() => {
+        createAmount("Wrong!");
+    });
+
+    assert.is(error.message, "An amount must be represented by a number.")
 });
 
-test('AmountShouldConvertFromString', t => {
-    const amount = Amount("42.387");
-    const expected = 42.387;
-    t.is(amount.valueOf(), expected);
+test("AmountValueShouldThrowIfNegative", (assert) => {
+    const error1 = assert.throws(() => {
+            createAmount(-42);
+        }),
+        error2 = assert.throws(() => {
+            createAmount(-0.001);
+        });
+
+    assert.is(error1.message, "An amount must be positive.");
+    assert.is(error2.message, "An amount must be positive.")
 });
 
-test('AmountShouldConvertFromAnotherAmount', t => {
-    const amount1 = Amount("42.38");
-    const amount2 = Amount(amount1);
-    t.is(amount1.valueOf(), amount2.valueOf());
+test("AmountShouldConvertFromString", (assert) => {
+    const amount = createAmount("42.38"),
+        expected = 42.38;
+
+    assert.is(amount.valueOf(), expected);
 });
 
-test('AmountShouldConvertToString', t => {
-    const amount = Amount(42);
-    const expected = "42";
-    t.is(amount.toString(), expected);
+test("AmountShouldConvertFromAnotherAmount", (assert) => {
+    const amount1 = createAmount("42.38"),
+        amount2 = createAmount(amount1);
+
+    assert.is(amount1.valueOf(), amount2.valueOf());
 });
 
-test('AmountShouldNotBeModified', t => {
-    const amount = Amount(42);
-    t.throws(() => { amount.number = 54 }, TypeError);
+test("AmountShouldConvertToString", (assert) => {
+    const amount = createAmount(42),
+        expected = "42.00";
+
+    assert.is(amount.toString(), expected);
+});
+
+test("AmountShouldNotBeModified", (assert) => {
+    const amount = createAmount(42);
+
+    assert.throws(() => { 
+        amount.number = 54;
+    }, TypeError);
+});
+
+test("AmountShouldTrimAfterSecondDecimal", (assert) => {
+    const amount1 = createAmount(42.123),
+        amount2 = createAmount(42.987),
+        expected1 = 42.12,
+        expected2 = 42.99;
+
+    assert.is(amount1.valueOf(), expected1);
+    assert.is(amount2.valueOf(), expected2);
 });
