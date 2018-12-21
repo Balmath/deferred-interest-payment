@@ -13,7 +13,7 @@ test("AmountValueShouldThrowIfInvalidNumber", (assert) => {
         createAmount("Wrong!");
     });
 
-    assert.is(error.message, "An amount must be represented by a number.")
+    assert.is(error.message, "An amount must be represented by a number.");
 });
 
 test("AmountValueShouldThrowIfNegative", (assert) => {
@@ -25,7 +25,7 @@ test("AmountValueShouldThrowIfNegative", (assert) => {
         });
 
     assert.is(error1.message, "An amount must be positive.");
-    assert.is(error2.message, "An amount must be positive.")
+    assert.is(error2.message, "An amount must be positive.");
 });
 
 test("AmountShouldConvertFromString", (assert) => {

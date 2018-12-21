@@ -48,7 +48,7 @@ module.exports = {
             "error",
             "never"
         ],
-        "eqeqeq": "error",
+        "eqeqeq": "smart",
         "func-call-spacing": "error",
         "func-name-matching": "error",
         "func-names": "error",
@@ -234,7 +234,7 @@ module.exports = {
             "error",
             "desc"
         ],
-        "sort-vars": "error",
+        "sort-vars": "off",
         "space-before-blocks": "error",
         "space-before-function-paren": "off",
         "space-in-parens": [
