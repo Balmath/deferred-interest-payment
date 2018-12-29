@@ -1,15 +1,11 @@
 import * as AssertionConcern from "./assertion-concern";
 
-export function createAmount(value) {
+export function init(value) {
     const number = Number(Number.parseFloat(value).toFixed(2));
 
-    AssertionConcern.assertArgumentIsNumber(
-        number, 
-        "An amount must be represented by a number."
-    );
     AssertionConcern.assertArgumentIsPositiveNumber(
         number,
-        "An amount must be positive."
+        "An amount must be a positive number."
     );
 
     var amount = {

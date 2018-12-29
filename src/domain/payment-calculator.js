@@ -1,4 +1,7 @@
-export function PaymentCalculator() {
+import * as Amount from "./amount";
+import * as CalendarDay from "./calendar-day";
+
+export function init() {
     var payment = 0.0;
 
     function doGetPayment() {
@@ -6,27 +9,23 @@ export function PaymentCalculator() {
     }
 
     function doAddPurchase(purchaseAmount) {
-        if (typeof purchaseAmount !== "number")
-            throw "purchaseAmount is not a number";
-        payment += purchaseAmount;
+        var amount = Amount.create(purchaseAmount);
+
+        payment += amount.valueOf();
     }
 
-    function doAddBalanceDeferredInterest(balanceAmount, expirationDate)
-    {
-        if (typeof balanceAmount !== "number")
-            throw "balanceAmount is not a number";
-        if (expirationDate.getYear !== "undefined")
-            throw "expirationDate should implement getYear function";
-        if (expirationDate.getMonth !== "undefined")
-            throw "expirationDate should implement getMonth function (month must be 0 based)";
-        if (expirationDate.getDate !== "undefined")
-            throw "expirationDate should implement getDate function (day of month month must be 1 based)";
-        const currentTime = new Date(Date.now());
-        const currentDate = new Date(currentTime.getYear(), currentTime.getMonth(), currentTime.getDate());
-        const expirationDate = new DataCue(expirationDate.getYear(), expirationDate.getMonth(), expirationDate.getDate());
-        if (expirationDate < currentDate)
-            throw "expirationDate must be later than now";
-        let remainingMonth = 1; // TODO
+    function doAddBalanceDeferredInterest(balanceAmount, expirationDate) {
+        const currentDate = new Date(Date.now()),
+            currentDay = CalendarDay.initWithDate(currentDate),
+            expirationDay = CalendarDay.initWithDate(expirationDate);
+        let remainingMonth = 1;
+
+        if (expirationDay < currentDay) {
+            throw new Error("expirationDate must be later than now");
+        }
+
+        remainingMonth = CalendarDay.diffInMonth(expirationDay, currentDay);
+        remainingMonth = Math.max(1, remainingMonth);
         payment += balanceAmount / remainingMonth;
     }
 

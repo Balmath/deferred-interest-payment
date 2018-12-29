@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Balmath/deferred-interest-payment#readme",
   "devDependencies": {
-    "ava": "1.0.0-rc.2",
+    "ava": "^1.0.1",
     "eslint": "^5.9.0",
     "esm": "^3.0.84"
   },

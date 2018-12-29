@@ -1,6 +1,8 @@
 import * as AssertionConcern from "./assertion-concern";
 
-function validateCreateDateArguments(year, month, day) {
+const MICROSECONDS_TO_DAYS = 864e+5;
+
+function validateCreationArguments(year, month, day) {
     AssertionConcern.assertArgumentIsInteger(
         year,
         "The year must be an integer."
@@ -31,10 +33,8 @@ function validateCreateDateArguments(year, month, day) {
     );
 }
 
-export function createDate(year, month, day) {
-    const MICROSECONDS_TO_DAYS = 864e+5;
-
-    validateCreateDateArguments(year, month, day);
+export function initWithYearMonthDay(year, month, day) {
+    validateCreationArguments(year, month, day);
 
     var obj = {
         year,
@@ -61,6 +61,20 @@ export function createDate(year, month, day) {
     Object.freeze(obj);
 
     return obj;
+}
+
+export function initWithDate(date) {
+    const year = date.getFullYear(),
+        month = date.getMonth() + 1,
+        day = date.getDate();
+
+    return initWithYearMonthDay(year, month, day);
+}
+
+export function initWithCalendarDay(calendarDay) {
+    const {year, month, day} = calendarDay;
+
+    return initWithYearMonthDay(year, month, day);
 }
 
 export function diffInMonth(leftDate, rightDate) {

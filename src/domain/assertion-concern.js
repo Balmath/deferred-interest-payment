@@ -1,17 +1,18 @@
 export function assertArgumentIsNumber(value, message) {
     if (Number.isNaN(Number(value))) {
-        throw Error(message);
+        throw new Error(message);
     }
 }
 
 export function assertArgumentIsPositiveNumber(value, message) {
+    assertArgumentIsNumber(value, message);
     if (Object.is(value, -0) || value < 0) {
         throw new Error(message);
     }
 }
 
 export function assertArgumentIsInteger(value, message) {
-    if (!(/^(-|\+)?([0-9]+|Infinity)$/u).test(value)) {
+    if (!(/^(-|\+)?(([1-9][0-9]*)|0|Infinity)$/u).test(value)) {
         throw new Error(message);
     }
 }
