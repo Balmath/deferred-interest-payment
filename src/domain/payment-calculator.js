@@ -9,13 +9,12 @@ export function init() {
     }
 
     function doAddPurchase(purchaseAmount) {
-        var amount = Amount.create(purchaseAmount);
-
-        payment += amount.valueOf();
+        payment += Amount.create(purchaseAmount);
     }
 
     function doAddBalanceDeferredInterest(balanceAmount, expirationDate) {
-        const currentDate = new Date(Date.now()),
+        const amount = Amount.create(balanceAmount),
+            currentDate = new Date(Date.now()),
             currentDay = CalendarDay.initWithDate(currentDate),
             expirationDay = CalendarDay.initWithDate(expirationDate);
         let remainingMonth = 1;
@@ -26,7 +25,7 @@ export function init() {
 
         remainingMonth = CalendarDay.diffInMonth(expirationDay, currentDay);
         remainingMonth = Math.max(1, remainingMonth);
-        payment += balanceAmount / remainingMonth;
+        payment += Amount.create(amount / remainingMonth);
     }
 
     return {
